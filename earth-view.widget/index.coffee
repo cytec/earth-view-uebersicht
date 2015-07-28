@@ -33,11 +33,9 @@ style: """
     position: absolute;
     overflow: hidden;
 
-  .location
-    position: absolute
-    right: 1%
-    bottom: 1%
-    z-index: 1
+  a
+    color: #fff
+    text-decoration: none
 
   .location
     font-size: 1rem;
@@ -58,9 +56,10 @@ render: -> """
     <div class="background__image"></div>
   </div>
   <div class="location">
-    <div class="location__region">Division No. 18</div>
-    <div class="location__country">Canada</div>
-  </a>
+    <a href="#" id="maps">
+      <div class="location__region"></div>
+      <div class="location__country"></div>
+    </a>
   </div>
 """
 
@@ -74,6 +73,8 @@ update: (output, domEl) ->
     $(domEl).find('.background__image').css('background-image', 'url(' + data.dataUri + ')')
     $(domEl).find('.location__region').text(data.geocode.administrative_area_level_1)
     $(domEl).find('.location__country').text(data.geocode.country)
+    $(domEl).find('#maps').attr('href','https://www.google.com/maps/@' + data.lat + ',' + data.lng + ',' + data.zoom + 'z/' + 'data=!3m1!1e3')
+
 
   @command   = @makeCommand(@images[Math.floor(Math.random() * (@images.length))])
  
